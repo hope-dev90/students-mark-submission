@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Marks Submission</h1>
+    <input type="text" id="name" placeholder="enter names" required>
+    <input type="text" id="marks" placeholder="enter marks" required>
+    <button onclick="addMarks()">Add</button>
+
+    <script>
+        function addMarks() {
+            var student = document.getElementById("name").value;
+            var studentm = document.getElementById("marks").value;
+            studentm = Number(studentm);
+            class Student {
+                constructor(name, marks) {
+                    this.name = name;
+                    this.marks = marks;
+                }
+            }
+            var student1 = new Student(student, studentm);
+            var p = document.createElement("p");
+            document.body.appendChild(p);
+
+            if (student1.marks >= 50) {
+                p.textContent = `Name: ${student1.name}, Marks: ${student1.marks} — PASSED`;
+
+            }
+            else {
+                p.textContent = `Name: ${student1.name}, Marks: ${student1.marks} — failed`;
+                ;
+            }
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html> make this web good interactive it is like add css
