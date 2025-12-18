@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Marks Records</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+            margin: 0;
+            padding: 30px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #006064;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #00838f;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 12px 16px;
+            margin: 10px;
+            font-size: 16px;
+            border: 2px solid #80deea;
+            border-radius: 8px;
+            width: 250px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00acc1;
+            box-shadow: 0 0 10px rgba(0, 172, 193, 0.4);
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: #00acc1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00838f;
+        }
+
+        table {
+            width: 80%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #006064;
+            color: white;
+            padding: 16px;
+            font-size: 1.3em;
+        }
+
+        td {
+            padding: 14px 110px;
+            text-align: center;
+            border-bottom: 1px solid #e0f7fa;
+        }
+
+        tr:hover {
+            background-color: #e0f7fa;
+        }
+
+        td:last-child {
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        tr:nth-child(2) td:last-child {
+            color: #2e7d32;
+        }
+
+        tr:nth-child(3) td:last-child {
+            color: #388e3c;
+        }
+
+        tr:nth-child(4) td:last-child {
+            color: #f9a825;
+        }
+
+        tr:nth-child(5) td:last-child {
+            color: #fb8c00;
+        }
+
+        tr:nth-child(6) td:last-child {
+            color: #d32f2f;
+        }
+
+        @media (max-width: 600px) {
+
+            input[type="text"],
+            button {
+                width: 90%;
+                margin: 10px auto;
+                display: block;
+            }
+
+            table {
+                width: 95%;
+            }
+        }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>School's Marks Records</h1>
+    <input type="text" id="name" placeholder="Enter name">
+    <input type="text" id="marks" placeholder="Enter marks">
+    <button onclick="addStudent()">Add Student</button>
+
+    <table id="table">
+        <tr>
+            <th>Name</th>
+            <th>Marks</th>
+            <th>Grade</th>
+        </tr>
+    </table>
+
+    <script>
+        class Student {
+            constructor(name, marks) {
+                this.name = name;
+                this.marks = marks;
+            }
+
+            getGrade() {
+                const m = this.marks;
+                return m > 80 ? "A" : m > 70 ? "B" : m > 60 ? "C" : m > 50 ? "D" : "E";
+            }
+        }
+
+        class StudentManager {
+            constructor() {
+                this.students = [];
+            }
+
+            addStudent(student) {
+                this.students.push(student);
+                console.log(this.students);
+            }
+        }
+
+
+        const manager = new StudentManager();
+        function addStudent() {
+            const name = document.getElementById("name").value.trim();
+            const marks = Number(document.getElementById("marks").value.trim());
+
+            if (!name || isNaN(marks) || marks < 0 || marks > 100) {
+                alert("Enter a valid name and marks (0-100)");
+                return;
+            }
+
+            const student = new Student(name, marks);
+            manager.addStudent(student);
+
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+        <td>${student.name}</td>
+        <td>${student.marks}</td>
+        <td>${student.getGrade()}</td>
+    `;
+            document.getElementById("table").appendChild(row);
+            document.getElementById("name").value = "";
+            document.getElementById("marks").value = "";
+        }
+    </script>
+
+</body>
+
+</html>
